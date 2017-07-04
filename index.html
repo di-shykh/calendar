@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <link href="styles.css" rel="stylesheet" />
+    <link href="mediaQueries.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <button id="add">Add</button>
+            <button id="refresh">Refresh</button>
+            <form>
+                <input type="submit" value="" />
+                <input id="search_box" type="search" title="Event, date or participant" autocomplete="off" placeholder="Event, date or participant" />
+            </form>
+        </div>
+    </header>
+    <div class="wrapper">
+        <section>
+            <button id="left"></button>
+            <span id="month"></span>
+            <button id="right"></button>
+            <button id="today">Today</button>
+        </section>
+    </div>
+    <div class="wrapper">
+        <section class="calendar">
+        </section>
+    </div>
+     <div class="formForEvent">
+        <form>
+            <button name="x">x</button><br/>
+            <input type="text" required name="event" placeholder="Event" autofocus/><br/>
+            <input type="date" required name="date" placeholder="Year, Month, Day"/><br/>
+            <input type="text" required name="participant" placeholder="Names of participants"/><br/>
+            <textarea name="description" placeholder="Description"></textarea><br/>
+            <button name="ok">OK</button>
+            <button name="cancel">Cancel</button>
+        </form>
+     </div>
+    <div class="shortFormEvent">
+        <form>
+            <button name="x">x</button><br/>
+            <input type="text" name="eventWithDate" placeholder="3 April, 14:00, Birthday" autofocus/><br/>
+            <button name="create">Create</button>
+        </form>
+    </div>
+    <div class="formForEditEvent">
+        <form>
+            <button name="x">x</button><br/>
+            <h3 id="event">Event</h3><br/>
+            <div id="date">Date</div><br/>
+            <div id="participants">Participants</div><br/>
+            <textarea name="description" placeholder="Description" autofocus></textarea><br/>
+            <button name="ok">OK</button>
+            <button name="del">Delete</button>
+        </form>
+     </div>
+    <div class="searchForm">
+        <ul class="live-search-list">
+        </ul>
+    </div>
+    <script src="jquery-3.2.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

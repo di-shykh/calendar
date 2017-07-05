@@ -25,7 +25,7 @@
             }
             /*create 4 row for calendar*/
             table += "</tr>";
-            for (i = 0; i < 4; i++) {
+            for (i = 0; i < 5; i++) {
                 table += "<tr>";
                 for (var j = 0; j < 7; j++) {
                     table += "<td></td>";

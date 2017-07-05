@@ -71,9 +71,9 @@
                     createHiddenElement(date, $("td")[i]);
                 }
             }
-            if(count<35){
+            if(count<42){
                 var dateLast=lastDay;
-                for(i=count;i<35;i++){
+                for(i=count;i<42;i++){
                     dateLast.setDate(dateLast.getDate()+1);
                     $("td")[i].innerHTML += dateLast.getDate();
                     createHiddenElement(dateLast, $("td")[i]);

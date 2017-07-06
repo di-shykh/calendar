@@ -47,6 +47,7 @@
                 day++;
                 if (day <= lastDay.getDate()) {
                     $("td")[count].innerHTML += day;
+                    $("td")[count].className += "current";
                     tempDate=new Date(year, month, day);
                     createHiddenElement(tempDate, $("td")[count]);
                     count++;                   
@@ -167,7 +168,7 @@
                location.reload();
             })
             //add event to localstorage
-            $("[name=ok]").click(function () {
+            $("[name=ok]").unbind("click").click(function () {
                 if($("[name=event]").val().length&&$("[name=participant]").val().length&&$("[name=date]").val().length){
                     var event = new Event();
                     event.name = $("[name=event]").val();

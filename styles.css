@@ -327,6 +327,10 @@ li:hover{
     background:#4b4848;
     border-color:#4b4848;
 }
+/*font color for current month*/
+.current{
+    color: #000000;
+}
 
 
 

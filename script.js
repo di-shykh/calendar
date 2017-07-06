@@ -119,7 +119,6 @@
                         $(".formForEditEvent [name=description]").text(str);
                     //$("button[name=del]").live("click",deleteEvent(event));
                     //$(window).live('click',".formForEditEvent button[name=ok]",refreshEvent(event));
-     
                 }
                 $(window).on('click', function (e) {
                     if (e.target.name == "del")
@@ -131,16 +130,17 @@
                     if ((e.target.name=="x"||e.target.name=="cancel")&&$(e.target).parent().parent().prop('className') == "formForEvent"){
                         var requiredInputs=$(".formForEvent [required]"); 
                         for(i=0;i<requiredInputs.length;i++){
-                        requiredInputs[i].setCustomValidity("");
+                            requiredInputs[i].setCustomValidity("");
                         }
-                        $(".formForEvent").fadeOut(600);
+                        //requiredInputs.css('border', '1px solid #808080');
+                        //requiredInputs.css('box-shadow', 'none');
+                        $(".formForEvent").hide();
                         if(event){
                             event.stopPropagation();
                             event.preventDefault();
                         }
-                        //var curDate=findDomDate();
-                        location.reload();
-                        //createCalendar($.inArray(curDate[0],monthNames),parseInt(curDate[1]), today);
+                        var curDate=findDomDate();                      
+                        createCalendar($.inArray(curDate[0],monthNames),parseInt(curDate[1]), today);
                     }
                 });
             });
@@ -152,7 +152,7 @@
                 //$(".shortFormEvent input[name=eventWithDate]").IsValid = true;
                 //$(".shortFormEvent input[name=eventWithDate]").oninvalid = document.getElementsByName("eventWithDate")[0].setCustomValidity("");
                 $(".shortFormEvent input[name=eventWithDate]").oninvalid = this.setCustomValidity('');
-                $(".shortFormEvent").fadeOut(600);
+                $(".shortFormEvent").hide();
             });
             $("#add").click(function () {
                 var pos = $(this).offset();

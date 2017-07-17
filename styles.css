@@ -22,7 +22,6 @@ header button{
 }
 section{
     padding:15px 0px;
-   /* display:flex;*/
 }
 .wrapper{
     max-width:900px;
@@ -37,7 +36,7 @@ header form{
 button{
     cursor: pointer; 
 }
-header input[type=submit] {
+header form button[name=search] {
     background-image: url(img/searchIcon.png); 
     background-color: transparent; 
     background-repeat: no-repeat;  
@@ -45,10 +44,12 @@ header input[type=submit] {
     background-size:contain;
     border: none;           
     cursor: pointer;        
-    height: 30px;           
-    width: 30px;
+    height: 25px;           
+    width: 25px;
     padding-left: 16px;     
     vertical-align: middle; 
+    box-shadow:none;
+    margin-right:0;
 }
 header input[type=search]{
     width:200px;
@@ -89,13 +90,14 @@ header input[type=search]{
     border:1px solid  #808080;
     border-radius:2px;
 }
-.day{
+/*something strange!!!!!!!!I don't remember why I use this class*/
+/*.day{
     max-height:120px;
     width:14%;
     border:1px solid #808080;
     min-height:120px;
     cursor:pointer;
-}
+}*/
 .event{
     background:#c2e4fe;
 }
@@ -124,7 +126,8 @@ td{
     height:120px;
     text-align:left;
     vertical-align:top;
-   /* width:120px;*/
+    width:14%;
+    overflow:hidden;
 }
 tr{
     height:120px;
@@ -142,7 +145,6 @@ tr{
     position: absolute;
     display: none;
     background: white;
-    
 }
 .formForEvent button{
     background-color: transparent;     
@@ -152,7 +154,6 @@ tr{
     border:1px solid  #808080;
     border-radius:2px;
 }
-
 .formForEvent input{
     margin-bottom:5px; 
     width: 100%;
@@ -197,8 +198,7 @@ tr{
     box-sizing: border-box;
     position: absolute;
     display: none;
-    background: white;
-    
+    background: white;   
 }
 .shortFormEvent button{
     background-color: transparent;     

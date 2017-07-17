@@ -7,7 +7,8 @@
         var monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
             ];
-        var weekNames=["Monday,","Tuesday,","Wednesday,","Thursday,","Friday,","Saturday,","Sunday,"];
+        var weekNames = ["Monday,", "Tuesday,", "Wednesday,", "Thursday,", "Friday,", "Saturday,", "Sunday,"];
+        var smallWeekNames = ["Mon,", "Tue,", "Wed,", "Thu,", "Fri,", "Sat,", "Sun,"];
 
         /*create calendar for this month*/
         function createCalendar(month, year, today) {
@@ -20,8 +21,15 @@
             var calendar = document.querySelector(".calendar");
             var table="<table><tr>";
             /*create first row with days of week*/
-            for(var i=0;i<weekNames.length;i++){
-                table+="<td>"+weekNames[i]+"</td>";
+            if ($(document).width() >= 700) {
+                for (var i = 0; i < weekNames.length; i++) {
+                    table += "<td>" + weekNames[i] + "</td>";
+                }
+            }
+            else {
+                for (var i = 0; i < smallWeekNames.length; i++) {
+                    table += "<td>" + smallWeekNames[i] + "</td>";
+                }
             }
             /*create 4 row for calendar*/
             table += "</tr>";
@@ -86,11 +94,15 @@
                     var pos = $(this).offset();
                     var h = $(this).height();
                     var w = $(this).width();
+                    var off = false;
+                    var widthOfPopupForms=250;
+                    /*определить точка всплытия формы+ширина всплывающей вормы больше и меньше ширины окна*/
                     var date = readDateFromHiddenElement($(this));
                     //var str=date.year+"-"+date.month+"-"+date.day;
                     //$("[name=date]").val(date.toDateInputValue());
                     //document.querySelector("[name=date]").valueAsDate = date;
                     $("[name=date]").val(date.toISOString().substr(0, 10));
+                    /*try to understand offset of the window popup form or not*/
                     $(".formForEvent").css({ left: pos.left + w + 10, top: pos.top + 10 });
                     $(".formForEvent").fadeIn(600);
                     $(".formForEvent input[name=event]").attr('requered','required');

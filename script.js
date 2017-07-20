@@ -96,6 +96,8 @@
                     var w = $(this).width();
                     var off = false;
                     var widthOfPopupForms=250;
+                if((pos.left + w + 10+widthOfPopupForms)>$(window).width())
+                    off=true;
                     /*определить точка всплытия формы+ширина всплывающей вормы больше и меньше ширины окна*/
                     var date = readDateFromHiddenElement($(this));
                     //var str=date.year+"-"+date.month+"-"+date.day;
@@ -353,27 +355,6 @@
                 localStorage.setItem('events', JSON.stringify(events));
             }
         }
-            
-        /*создать скрытый элемент,куда сохранять дату(при генерации календаря)и по этой дате искать и привязывать
-         * события из локального хранилища
-         */
-        /*work with localstorage*/
-           // var events = JSON.parse(localStorage.getItem("events")) || [];
-            
-            //var allEntries = JSON.parse(localStorage.getItem("allEntries")) || [];
-            //allEntries.push(entry); 
-            //function SaveDataToLocalStorage(data)
-            //{
-            //    var a = [];
-            //    // Parse the serialized data back into an aray of objects
-            //    a = JSON.parse(localStorage.getItem('session'));
-            //    // Push the new data (whether it be an object or anything else) onto the array
-            //    a.push(data);
-            //    // Alert the array value
-            //    alert(a);  // Should be something like [Object array]
-            //    // Re-serialize the array back into a string and store it in localStorage
-            //    localStorage.setItem('session', JSON.stringify(a));
-        //}
         //for search
             $("#search_box").focus(function () {
                 var pos = $(this).offset();
@@ -416,6 +397,13 @@
                     });
                 });
             }
+            $( window ).resize(function() {
+                var arrForMonth=findDomDate();
+                var monthFromDOM=$.inArray(arrForMonth[0],monthNames);
+                if(monthFromDOM){
+                createCalendar(monthFromDOM,arrForMonth[1],today);
+            }
+            });
     });
 
 })();

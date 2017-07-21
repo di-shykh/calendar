@@ -90,22 +90,30 @@
             }
             /*add or edit event by click on the day*/
             $("td").click(function () {
-                if (!$(this).hasClass("event")) {
-                    var pos = $(this).offset();
-                    var h = $(this).height();
-                    var w = $(this).width();
-                    var off = false;
-                    var widthOfPopupForms=250;
-                if((pos.left + w + 10+widthOfPopupForms)>$(window).width())
-                    off=true;
-                    /*определить точка всплытия формы+ширина всплывающей вормы больше и меньше ширины окна*/
+                var pos = $(this).offset();
+                var h = $(this).height();
+                var w = $(this).width();
+                var off = false;
+                var widthOfPopupForms = 250;
+                /*if popup element is out of the window*/
+                if ((pos.left + w + 10 + widthOfPopupForms) > $(window).width())
+                    off = true;
+
+                if (!$(this).hasClass("event")) {              
                     var date = readDateFromHiddenElement($(this));
                     //var str=date.year+"-"+date.month+"-"+date.day;
                     //$("[name=date]").val(date.toDateInputValue());
                     //document.querySelector("[name=date]").valueAsDate = date;
                     $("[name=date]").val(date.toISOString().substr(0, 10));
-                    /*try to understand offset of the window popup form or not*/
-                    $(".formForEvent").css({ left: pos.left + w + 10, top: pos.top + 10 });
+                    if (!off)
+                        $(".formForEvent").css({ left: pos.left + w + 10, top: pos.top + 10 });
+                    else {
+                        if (pos.left + w - 10 - widthOfPopupForms>0)
+                            $(".formForEvent").css({ left: pos.left + w - 10 - widthOfPopupForms, top: pos.top + 10 });
+                        else
+                            /*if popup element is out of the window*/
+                            $(".formForEvent").css({ left: 10, top: pos.top + 10 });
+                    }
                     $(".formForEvent").fadeIn(600);
                     $(".formForEvent input[name=event]").attr('requered','required');
                     $(".formForEvent input[name=participant]").attr('requered','required');
@@ -114,9 +122,6 @@
                     ///$('#someid').removeProp('disabled');
                 }
                 if ($(this).hasClass("event")) {
-                    var pos = $(this).offset();
-                    var h = $(this).height();
-                    var w = $(this).width();
                     $(".formForEditEvent").css({ left: pos.left + w + 10, top: pos.top + 10 });
                     $(".formForEditEvent").fadeIn(600);
                     /*----------------------------------------------------- */                  

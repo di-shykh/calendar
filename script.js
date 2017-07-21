@@ -118,12 +118,17 @@
                     $(".formForEvent input[name=event]").attr('requered','required');
                     $(".formForEvent input[name=participant]").attr('requered','required');
                      $(".formForEvent input[name=date]").attr('requered','required');
-                    ///$('#someid').attr('name', 'value');
-                    ///$('#someid').removeProp('disabled');
                 }
                 if ($(this).hasClass("event")) {
-                    $(".formForEditEvent").css({ left: pos.left + w + 10, top: pos.top + 10 });
-                    $(".formForEditEvent").fadeIn(600);
+                    if (!off)
+                        $(".formForEditEvent").css({ left: pos.left + w + 10, top: pos.top + 10 });
+                    else {
+                        if (pos.left + w - 10 - widthOfPopupForms > 0)
+                            $(".formForEditEvent").css({ left: pos.left + w - 10 - widthOfPopupForms, top: pos.top + 10 });
+                        else
+                            /*if popup element is out of the window*/
+                            $(".formForEditEvent").css({ left: 10, top: pos.top + 10 });
+                    } $(".formForEditEvent").fadeIn(600);
                     /*----------------------------------------------------- */                  
                     var  dateFromElem = readDateFromHiddenElement($(this));
                     var event=findEventInArray(dateFromElem);

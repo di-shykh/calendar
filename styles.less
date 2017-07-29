@@ -1,0 +1,324 @@
+@gray-color:#808080;
+@base-blue-color:#0271c7;
+@light-blue:#c2e4fe;
+/**/
+.box-shadow(@size:1px){
+    -webkit-box-shadow:0px 1px @size @gray-color;
+    -moz-box-shadow:0px 1px @size @gray-color;
+    box-shadow:0px 1px @size @gray-color;
+    border-radius:2px;
+}
+body {
+    margin: 0 auto;
+}
+header{
+    background-color:#f4f4f4;
+    height:100px;
+    .box-shadow(2px);
+
+    button{
+        min-height:30px;
+        background-color:@base-blue-color;
+        color:white;
+        border:1px solid @base-blue-color;     
+       .box-shadow();
+        float:left;
+        margin-right:10px;
+    }
+    .wrapper{
+        padding-top:50px;
+    }
+    form{
+        float:right;
+
+        button[name=search] {
+            background-image: url(img/searchIcon.png); 
+            background-color: transparent; 
+            background-repeat: no-repeat;  
+            background-position: 0px 0px;  
+            background-size:contain;
+            border: none;           
+            cursor: pointer;        
+            height: 25px;           
+            width: 25px;
+            padding-left: 16px;     
+            vertical-align: middle; 
+            box-shadow:none;
+            margin-right:0;
+        }
+    }
+    input[type=search]{
+        width:200px;
+        border:1px solid @gray-color;
+        border-radius:2px;
+    }
+}
+
+section{
+    padding:15px 0px;
+}
+.wrapper{
+    max-width:900px;
+    margin:0 auto;
+}
+button{
+    cursor: pointer; 
+}
+#right{
+    background-image: url(img/icon-arrow-right-b.png); 
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-position: 0px 0px;  
+    background-size:contain;               
+    height: 20px;           
+    width: 20px;
+    padding:10px;   
+    vertical-align: middle; 
+    border:1px solid  @gray-color;
+    border-radius:2px;
+}
+#left{
+    background-image: url(img/icon-arrow-left-b.png); 
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-position: 0px 0px;  
+    background-size:contain;             
+    height: 20px;           
+    width: 20px;
+    padding:10px;     
+    vertical-align: middle; 
+    border:1px solid  @gray-color;
+    border-radius:2px;
+}
+#today{
+    background-color: transparent;     
+    height: 22px;           
+    padding:1px 10px;     
+    vertical-align: middle; 
+    border:1px solid  @gray-color;
+    border-radius:2px;
+}
+.event{
+    background:@light-blue;
+}
+.name{
+    font-weight:bold;
+}
+.today{
+    background:#f4f4f4;
+    font-weight:bolder;
+}
+.calendar{
+    padding:0;
+    margin:0;
+    color:@gray-color;
+}
+table{
+    width: 100%;
+    border:1px solid  @gray-color;
+    border-radius:2px;
+    border-collapse: collapse;
+    table-layout:fixed;  
+}
+td{
+    border:1px solid  @gray-color;
+    border-radius:2px;
+    height:120px;
+    text-align:left;
+    vertical-align:top;
+    width:14%;
+    overflow:hidden;
+}
+tr{
+    height:120px;
+}
+.formForEvent{
+    border:1px solid  @gray-color;
+   .box-shadow();
+    width:250px;
+    padding: 10px;
+    padding-right:20px; 
+    box-sizing: border-box;
+    position: absolute;
+    display: none;
+    background: white;
+
+    button{
+        background-color: transparent;     
+        height: 22px;           
+        padding:1px 10px;     
+        vertical-align: middle; 
+        border:1px solid  @gray-color;
+        border-radius:2px;
+    }
+
+     input{
+        margin-bottom:5px; 
+        width: 100%;
+    }
+
+    textarea{
+        margin-top: 15px;
+        width: 100%;
+        margin-bottom: 15px;
+        resize: none;
+    }
+
+    &::before, &::after {
+    content: ''; 
+    position: absolute;
+    left: -20px; top: 20px;
+    border: 10px solid transparent;
+    border-right: 10px solid @gray-color;
+   }
+
+    &::after {
+        border-right: 10px solid white;
+        left: -19px; 
+    }
+}
+.shortFormEvent{
+    border:1px solid  @gray-color;
+    .box-shadow();
+    width:250px;
+    padding: 10px;
+    padding-right:20px; 
+    box-sizing: border-box;
+    position: absolute;
+    display: none;
+    background: white;  
+
+    button{
+        background-color: transparent;     
+        height: 22px;           
+        padding:1px 10px;     
+        vertical-align: middle; 
+        border:1px solid  @gray-color;
+        border-radius:2px;
+    }
+
+    input{
+        margin-bottom:5px; 
+        width: 100%;
+    }
+
+    &::before, &::after {
+        content: ''; 
+        position: absolute;
+        left: 20px; top: -20px;
+        border: 10px solid transparent;
+        border-bottom: 10px solid @gray-color;
+    }
+
+    &::after {
+        border-bottom: 10px solid white;
+        top: -19px; 
+    }
+}
+.formForEditEvent{
+    border:1px solid  @gray-color;
+    .box-shadow();
+    width:250px;
+    padding: 10px;
+    padding-right:20px; 
+    box-sizing: border-box;
+    position: absolute;
+    display: none;
+    background: white;
+
+    button{
+        background-color: transparent;     
+        height: 22px;           
+        padding:1px 10px;     
+        vertical-align: middle; 
+        border:1px solid  @gray-color;
+        border-radius:2px;
+    }
+
+    textarea{
+        margin-top: 15px;
+        width: 100%;
+        margin-bottom: 15px;
+        resize: none;
+    }
+
+    h3{
+        margin-bottom: 5px;
+    }
+
+    &::before, &::after {
+        content: ''; 
+        position: absolute;
+        left: -20px; top: 20px;
+        border: 10px solid transparent;
+        border-right: 10px solid @gray-color;
+   }
+    &::after {
+        border-right: 10px solid white;
+        left: -19px; 
+    }
+}
+button[name=x]{
+    border: none;
+    position: absolute;
+    top:0;right: 0;
+}
+.searchForm{
+    border:1px solid  @gray-color;
+    .box-shadow();
+    width:200px;
+    height:300px;
+    overflow:auto;
+    box-sizing: border-box;
+    position: absolute;
+    display: none;
+    background: white;  
+
+    &::before, &::after {
+        content: ''; 
+        position: absolute;
+        left: 20px; top: -20px;
+        border: 10px solid transparent;
+        border-bottom: 10px solid @gray-color;
+    }
+    &::after {
+        border-bottom: 10px solid white ;
+        top: -19px; 
+    } 
+}
+
+li{
+    list-style:none;
+    border-bottom:1px solid @gray-color;
+    width:100%;
+    &:last-of-type{
+        border-bottom:none;
+    }
+    &:hover{
+        background:@light-blue;
+    }   
+}
+.live-search-list{
+    padding:5px;
+    margin:0 auto;  
+}
+/*scroll styling.Work only in chrome*/
+::-webkit-scrollbar {
+  width: 10px;
+  background: none;
+}
+::-webkit-scrollbar-thumb {
+     border: 2px solid @gray-color;
+     border-radius: 5px;
+     background:@gray-color;
+     height:100px;
+     margin:0 auto;
+     &:hover{
+    background:#4b4848;
+    border-color:#4b4848;
+    }
+}
+/*font color for current month*/
+.current{
+    color: #000000;
+}

@@ -90,14 +90,6 @@ header input[type=search]{
     border:1px solid  #808080;
     border-radius:2px;
 }
-/*something strange!!!!!!!!I don't remember why I use this class*/
-/*.day{
-    max-height:120px;
-    width:14%;
-    border:1px solid #808080;
-    min-height:120px;
-    cursor:pointer;
-}*/
 .event{
     background:#c2e4fe;
 }
@@ -175,17 +167,6 @@ tr{
     border-right: 10px solid white;
     left: -19px; 
 }
-   /*.formForEvent::before, .formForEvent::after {
-    content: ''; 
-    position: absolute;
-    left: 20px; bottom: -20px;
-    border: 10px solid transparent;
-    border-top: 10px solid #808080;
-   }
-   .formForEvent::after {
-    border-top: 10px solid white;
-    bottom: -19px; 
-   }*/
 .shortFormEvent{
     border:1px solid  #808080;
     -webkit-box-shadow:0px 1px 1px #808080;
@@ -331,6 +312,3 @@ li:hover{
 .current{
     color: #000000;
 }
-
-
-

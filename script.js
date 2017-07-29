@@ -98,12 +98,8 @@
                 /*if popup element is out of the window*/
                 if ((pos.left + w + 10 + widthOfPopupForms) > $(window).width())
                     off = true;
-
                 if (!$(this).hasClass("event")) {              
                     var date = readDateFromHiddenElement($(this));
-                    //var str=date.year+"-"+date.month+"-"+date.day;
-                    //$("[name=date]").val(date.toDateInputValue());
-                    //document.querySelector("[name=date]").valueAsDate = date;
                     $("[name=date]").val(date.toISOString().substr(0, 10));
                     if (!off)
                         $(".formForEvent").css({ left: pos.left + w + 10, top: pos.top + 10 });
@@ -117,7 +113,7 @@
                     $(".formForEvent").fadeIn(600);
                     $(".formForEvent input[name=event]").attr('requered','required');
                     $(".formForEvent input[name=participant]").attr('requered','required');
-                     $(".formForEvent input[name=date]").attr('requered','required');
+                    $(".formForEvent input[name=date]").attr('requered','required');
                 }
                 if ($(this).hasClass("event")) {
                     if (!off)
@@ -128,7 +124,8 @@
                         else
                             /*if popup element is out of the window*/
                             $(".formForEditEvent").css({ left: 10, top: pos.top + 10 });
-                    } $(".formForEditEvent").fadeIn(600);
+                    } 
+                    $(".formForEditEvent").fadeIn(600);
                     /*----------------------------------------------------- */                  
                     var  dateFromElem = readDateFromHiddenElement($(this));
                     var event=findEventInArray(dateFromElem);
@@ -140,13 +137,12 @@
                     $(".formForEditEvent #participants").text(str);
                     str=event.description;
                     if(str)
-                        $(".formForEditEvent [name=description]").text(str);
-                    //$("button[name=del]").live("click",deleteEvent(event));
-                    //$(window).live('click',".formForEditEvent button[name=ok]",refreshEvent(event));
+                        $(".formForEditEvent [name=description]").text(str); 
                 }
-                $(window).on('click', function (e) {
-                    if (e.target.name == "del")
+                $(window).unbind("click").on('click', function (e) {
+                    if (e.target.name == "del"){
                         deleteEvent(event);
+                    }
                     if (e.target.name == "ok")
                         if ($(e.target).parent().parent().prop('className') == "formForEditEvent"){
                             refreshEvent(event);
@@ -159,6 +155,7 @@
                         //requiredInputs.css('border', '1px solid #808080');
                         //requiredInputs.css('box-shadow', 'none');
                         $(".formForEvent").hide();
+                        //resetForms();
                         if(event){
                             event.stopPropagation();
                             event.preventDefault();
@@ -304,13 +301,25 @@
                 event.name = name;
                 event.date = date;
                 events.push(event);
-                localStorage.setItem('events', JSON.stringify(events));
+                localStorage.setItem('events', JSON.stringify(events));                     
             }
             else{
                 //$(".shortFormEvent input[name=eventWithDate]").IsValid=false;
                 $(".shortFormEvent input[name=eventWithDate]").oninvalid=this.setCustomValidity('Please, enter data in right format!');
             }
         }
+        function forSubmitForms(nameOfForm){
+            var str = "." + nameOfForm + " form";
+            $(str).submit(function (e) {
+                e.preventDefault();
+                var curDate = findDomDate();
+                createCalendar($.inArray(curDate[0], monthNames), parseInt(curDate[1]), today);
+                $("."+nameOfForm).fadeOut(600);
+            });
+        }
+        forSubmitForms("shortFormEvent");
+        forSubmitForms("formForEvent");
+        forSubmitForms("formForEditEvent");
         function findEventInArray(date) {
             var c;
             var arrLength=events.length;
@@ -338,7 +347,7 @@
         function addToCalendar(event) {
                 var m = new Date(event.date);
                 var dateFromElem;
-                for (i = 0; i < 35; i++) {
+                for (i = 0; i < 42; i++) {
                     dateFromElem = readDateFromHiddenElement($("td").eq(i));
                     if (dateFromElem.getDate() == m.getDate() && dateFromElem.getMonth() == m.getMonth() && dateFromElem.getFullYear() == m.getFullYear()) {
                         $("td").eq(i).addClass("event");
@@ -365,14 +374,39 @@
                 localStorage.setItem('events', JSON.stringify(events));
             }
         }
+        function resetForms() {
+           var value = $(".formForEvent input[name=date]").val();
+           $('.formForEvent').find('form')[0].reset();
+           // var valOfPlaceholder=$(".formForEvent input[name=participant]").attr('data-placeholder');
+            //$(".formForEvent input[name=participant]").val(" ");
+           // $(".formForEvent input[name=participant]").attr('data-placeholder',valOfPlaceholder);
+            //$(".formForEvent input[name=event]").val(" ");
+           // $(".formForEvent [name=description]").val(" ")
+            $(".formForEvent input[name=date]").val(value);
+            //document.getElementsByName('Email')[0].placeholder='new text for email';
+            //var placeholder = document.getElementById("demo").getAttribute("placeholder");
+        }
         //for search
             $("#search_box").focus(function () {
                 var pos = $(this).offset();
                 var h = $(this).height();
                 var w = $(this).width();
+                $(".searchForm").width($("#search_box").width());
                 $(".searchForm").css({ left: pos.left, top: pos.top + h + 15 });
                 $(".searchForm").fadeIn(600);
                 search();
+                $(".searchForm li").click(function (e) {
+                    var str = $(this).html();
+                    var lastLetter=str.indexOf("</b>");
+                    var name=str.slice(3,lastLetter);
+                    var firstLetter=str.indexOf("<div>")+5;
+                    lastLetter=str.indexOf("</div>");
+                    var date=str.slice(firstLetter,lastLetter);
+                    arrDate=date.split(" ");
+                    dateOfEvent=new Date(today.getFullYear(),$.inArray(arrDate[1], monthNames), parseInt(arrDate[0]));
+                    var event=findEventInArray(dateOfEvent);
+                    createCalendar(dateOfEvent.getMonth(),dateOfEvent.getFullYear(),today);
+                })
             });
             $("#search_box").blur(function () {
                 $(".searchForm").fadeOut(600);

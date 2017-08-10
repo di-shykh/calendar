@@ -100,7 +100,6 @@
                     off = true;
                 if (!$(this).hasClass("event")) {              
                     var date = readDateFromHiddenElement($(this));
-                    $("[name=date]").val(date.toISOString().substr(0, 10));
                     if (!off)
                         $(".formForEvent").css({ left: pos.left + w + 10, top: pos.top + 10 });
                     else {
@@ -111,6 +110,9 @@
                             $(".formForEvent").css({ left: 10, top: pos.top + 10 });
                     }
                     $(".formForEvent").fadeIn(600);
+                    $(".formForEvent form").remove();
+                    createForm();
+                    $("[name=date]").val(date.toISOString().substr(0, 10));
                     $(".formForEvent input[name=event]").attr('requered','required');
                     $(".formForEvent input[name=participant]").attr('requered','required');
                     $(".formForEvent input[name=date]").attr('requered','required');
@@ -126,7 +128,9 @@
                             $(".formForEditEvent").css({ left: 10, top: pos.top + 10 });
                     } 
                     $(".formForEditEvent").fadeIn(600);
-                    /*----------------------------------------------------- */                  
+                   // $(".formForEditEvent form").remove();
+                    /*----------------------------------------------------- */
+                    createEditForm();
                     var  dateFromElem = readDateFromHiddenElement($(this));
                     var event=findEventInArray(dateFromElem);
                     var str=event.name;
@@ -137,33 +141,57 @@
                     $(".formForEditEvent #participants").text(str);
                     str=event.description;
                     if(str)
-                        $(".formForEditEvent [name=description]").text(str); 
+                        $(".formForEditEvent [name=description]").text(str);
+                    $(window).unbind("click").on('click', function (e) {
+                        if (e.target.name == "del") {
+                            deleteEvent(event);
+                        }
+                        if (e.target.name == "ok")
+                            if ($(e.target).parent().parent().parent().prop('className') == "formForEditEvent") {
+                                refreshEvent(event);
+                            }
+                        if (e.target.name == "ok") {
+                            //add event to localstorage
+                            if ($(e.target).parent().parent().parent().prop('className') == "formForEvent") {
+                                if ($("[name=event]").val().length && $("[name=participant]").val().length && $("[name=date]").val().length) {
+                                    var event = new Event();
+                                    event.name = $("[name=event]").val();
+                                    date = parseDate($("[name=date]").val());
+                                    if (date) {
+                                        var day = date.getDate();
+                                        var month = date.getMonth();
+                                        var year = date.getFullYear();
+                                    }
+                                    event.date = new Date(year, month, day);
+                                    event.participants = $("[name=participant]").val();
+                                    event.description = $("[name=description]").val();
+                                    events.push(event);
+                                    localStorage.setItem('events', JSON.stringify(events));
+                                    if (date)
+                                        createCalendar(month, year, today);
+                                }
+
+                            }
+                        }
+                        if ((e.target.name == "cancel") && $(e.target).parent().parent().parent().prop('className') == "formForEvent")
+                            cancel();
+                        if ((e.target.name == "x" && $(e.target).parent().parent().prop('className') == "formForEvent"))
+                            cancel();
+                        function cancel() {
+                            var requiredInputs = $(".formForEvent [required]");
+                            for (i = 0; i < requiredInputs.length; i++) {
+                                requiredInputs[i].setCustomValidity("");
+                            }
+                            $(".formForEvent").hide();
+                            if (event) {
+                                event.stopPropagation();
+                                event.preventDefault();
+                            }
+                            var curDate = findDomDate();
+                            createCalendar($.inArray(curDate[0], monthNames), parseInt(curDate[1]), today);
+                        }
+                    });
                 }
-                $(window).unbind("click").on('click', function (e) {
-                    if (e.target.name == "del"){
-                        deleteEvent(event);
-                    }
-                    if (e.target.name == "ok")
-                        if ($(e.target).parent().parent().prop('className') == "formForEditEvent"){
-                            refreshEvent(event);
-                        }
-                    if ((e.target.name=="x"||e.target.name=="cancel")&&$(e.target).parent().parent().prop('className') == "formForEvent"){
-                        var requiredInputs=$(".formForEvent [required]"); 
-                        for(i=0;i<requiredInputs.length;i++){
-                            requiredInputs[i].setCustomValidity("");
-                        }
-                        //requiredInputs.css('border', '1px solid #808080');
-                        //requiredInputs.css('box-shadow', 'none');
-                        $(".formForEvent").hide();
-                        //resetForms();
-                        if(event){
-                            event.stopPropagation();
-                            event.preventDefault();
-                        }
-                        var curDate=findDomDate();                      
-                        createCalendar($.inArray(curDate[0],monthNames),parseInt(curDate[1]), today);
-                    }
-                });
             });
             
             
@@ -188,24 +216,7 @@
             $("#refresh").click(function () {
                location.reload();
             })
-            //add event to localstorage
-            $("[name=ok]").unbind("click").click(function () {
-                if($("[name=event]").val().length&&$("[name=participant]").val().length&&$("[name=date]").val().length){
-                    var event = new Event();
-                    event.name = $("[name=event]").val();
-                    date = parseDate($("[name=date]").val());
-                    if (date) {
-                        var day = date.getDate();
-                        var month = date.getMonth();
-                        var year = date.getFullYear();
-                    }
-                    event.date = new Date(year, month, day);
-                    event.participants = $("[name=participant]").val();
-                    event.description = $("[name=description]").val();
-                    events.push(event);
-                    localStorage.setItem('events', JSON.stringify(events));
-                }
-            });
+            
             findEvets();
         }
         function createHiddenElement(date, elem) {
@@ -448,6 +459,88 @@
                 createCalendar(monthFromDOM,arrForMonth[1],today);
             }
             });
+            function createForm() {
+                var form = document.createElement('form');
+                $('<button/>', {
+                    name: 'x',
+                    text: 'x'
+                }).appendTo(form);
+                $('<br/>').appendTo(form);
+                $('<input/>', {
+                    type: 'text',
+                    required: 'required',
+                    name: 'event',
+                    placeholder: 'Event',
+                }).appendTo(form);
+                $('<input/>', {
+                    type: 'date',
+                    required: 'required',
+                    name: 'date',
+                    placeholder: 'Year, Month, Day',
+                }).appendTo(form);
+                $('<br/>').appendTo(form);
+                $('<input/>', {
+                    type: 'text',
+                    required: 'required',
+                    name: 'participant',
+                    placeholder: 'Names of participants',
+                }).appendTo(form);
+                $('<br/>').appendTo(form);
+                $('<textarea/>', {
+                    name: 'description',
+                    placeholder: 'Description',
+                }).appendTo(form);
+                $('<br/>').appendTo(form);
+                var wrap=$('<div class="wrap"><div/>').appendTo(form);
+                $('<button/>', {
+                    name: 'ok',
+                    text:'OK',
+                    value: 'OK'
+                }).appendTo(wrap);
+                $('<button/>', {
+                    name: 'cancel',
+                    text: 'Cancel'
+                }).appendTo(wrap);
+                $("div.formForEvent").append(form);
+            }
+            function createEditForm() {
+                var form = document.createElement('form');
+                $('<button/>', {
+                    name: 'x',
+                    text: 'x'
+                }).appendTo(form);
+                $('<br/>').appendTo(form);
+                $('<h3/>', {
+                    text: 'Event',
+                    id:'event'
+                }).appendTo(form);
+                $('<div/>', {
+                    id: 'date',
+                    text: 'Date',
+                }).appendTo(form);
+                $('<br/>').appendTo(form);
+                $('<div/>', {
+                    text: 'Participants',
+                    id: 'participants',
+                }).appendTo(form);
+                $('<br/>').appendTo(form);
+                $('<textarea/>', {
+                    name: 'description',
+                    placeholder: 'Description',
+                }).appendTo(form);
+                $('<br/>').appendTo(form);
+                var wrap = $('<div class="wrap"><div/>').appendTo(form);
+                $('<button/>', {
+                    name: 'ok',
+                    text: 'OK',
+                    value: 'OK'
+                }).appendTo(wrap);
+                $('<button/>', {
+                    name: 'del',
+                    text: 'Delete'
+                }).appendTo(wrap);
+                $("div.formForEditEvent").append(form);
+            }
     });
 
 })();

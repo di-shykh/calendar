@@ -143,18 +143,24 @@ tr{
     display: none;
     background: white;
 
-    button{
+     input{
+        margin-bottom:5px; 
+        width: 100%;
+    }
+
+    button,input[type=submit]{
         background-color: transparent;     
         height: 22px;           
         padding:1px 10px;     
         vertical-align: middle; 
         border:1px solid  @gray-color;
         border-radius:2px;
+        width: 65px;
+        margin-left:5px; 
     }
 
-     input{
-        margin-bottom:5px; 
-        width: 100%;
+    button[name='x']{
+        width: 30px;
     }
 
     textarea{
@@ -226,13 +232,14 @@ tr{
     display: none;
     background: white;
 
-    button{
+    button,input[type=submit]{
         background-color: transparent;     
         height: 22px;           
         padding:1px 10px;     
         vertical-align: middle; 
         border:1px solid  @gray-color;
         border-radius:2px;
+        margin-left:5px;
     }
 
     textarea{
@@ -321,4 +328,7 @@ li{
 /*font color for current month*/
 .current{
     color: #000000;
+}
+.wrap{
+    display: inline-flex;
 }

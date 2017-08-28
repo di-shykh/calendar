@@ -1,296 +1,314 @@
-﻿body {
-    margin: 0 auto;
+﻿/**/
+body {
+  margin: 0 auto;
 }
-header{
-    background-color:#f4f4f4;
-    height:100px;
-    -webkit-box-shadow:0px 1px 2px #808080;
-    -moz-box-shadow:0px 1px 2px #808080;
-    box-shadow:0px 1px 2px #808080;
+header {
+  background-color: #f4f4f4;
+  height: 100px;
+  -webkit-box-shadow: 0px 1px 2px #808080;
+  -moz-box-shadow: 0px 1px 2px #808080;
+  box-shadow: 0px 1px 2px #808080;
+  border-radius: 2px;
 }
-header button{
-    min-height:30px;
-    background-color:#0271c7;
-    color:white;
-    border:1px solid #0271c7;
-    border-radius:2px;
-    -webkit-box-shadow:0px 1px 1px #808080;
-    -moz-box-shadow:0px 1px 1px #808080;
-    box-shadow:0px 1px 1px #808080;
-    float:left;
-    margin-right:10px;
+header button {
+  min-height: 30px;
+  background-color: #0271c7;
+  color: white;
+  border: 1px solid #0271c7;
+  -webkit-box-shadow: 0px 1px 1px #808080;
+  -moz-box-shadow: 0px 1px 1px #808080;
+  box-shadow: 0px 1px 1px #808080;
+  border-radius: 2px;
+  float: left;
+  margin-right: 10px;
 }
-section{
-    padding:15px 0px;
+header .wrapper {
+  padding-top: 50px;
 }
-.wrapper{
-    max-width:900px;
-    margin:0 auto;
-}
-header .wrapper{
-    padding-top:50px;
-}
-header form{
-    float:right;
-}
-button{
-    cursor: pointer; 
+header form {
+  float: right;
 }
 header form button[name=search] {
-    background-image: url(img/searchIcon.png); 
-    background-color: transparent; 
-    background-repeat: no-repeat;  
-    background-position: 0px 0px;  
-    background-size:contain;
-    border: none;           
-    cursor: pointer;        
-    height: 25px;           
-    width: 25px;
-    padding-left: 16px;     
-    vertical-align: middle; 
-    box-shadow:none;
-    margin-right:0;
+  background-image: url(img/searchIcon.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  padding-left: 16px;
+  vertical-align: middle;
+  box-shadow: none;
+  margin-right: 0;
 }
-header input[type=search]{
-    width:200px;
-    border:1px solid #808080;
-    border-radius:2px;
+header input[type=search] {
+  width: 200px;
+  border: 1px solid #808080;
+  border-radius: 2px;
 }
-#right{
-    background-image: url(img/icon-arrow-right-b.png); 
-    background-color: transparent; 
-    background-repeat: no-repeat;  
-    background-position: 0px 0px;  
-    background-size:contain;               
-    height: 20px;           
-    width: 20px;
-    padding:10px;   
-    vertical-align: middle; 
-    border:1px solid  #808080;
-    border-radius:2px;
+section {
+  padding: 15px 0px;
 }
-#left{
-    background-image: url(img/icon-arrow-left-b.png); 
-    background-color: transparent; 
-    background-repeat: no-repeat;  
-    background-position: 0px 0px;  
-    background-size:contain;             
-    height: 20px;           
-    width: 20px;
-    padding:10px;     
-    vertical-align: middle; 
-    border:1px solid  #808080;
-    border-radius:2px;
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
 }
-#today{
-    background-color: transparent;     
-    height: 22px;           
-    padding:1px 10px;     
-    vertical-align: middle; 
-    border:1px solid  #808080;
-    border-radius:2px;
+button {
+  cursor: pointer;
 }
-.event{
-    background:#c2e4fe;
+#right {
+  background-image: url(img/icon-arrow-right-b.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-size: contain;
+  height: 20px;
+  width: 20px;
+  padding: 10px;
+  vertical-align: middle;
+  border: 1px solid #808080;
+  border-radius: 2px;
 }
-.name{
-    font-weight:bold;
+#left {
+  background-image: url(img/icon-arrow-left-b.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-size: contain;
+  height: 20px;
+  width: 20px;
+  padding: 10px;
+  vertical-align: middle;
+  border: 1px solid #808080;
+  border-radius: 2px;
 }
-.today{
-    background:#f4f4f4;
-    font-weight:bolder;
+#today {
+  background-color: transparent;
+  height: 22px;
+  padding: 1px 10px;
+  vertical-align: middle;
+  border: 1px solid #808080;
+  border-radius: 2px;
 }
-.calendar{
-    padding:0;
-    margin:0;
-    color:#808080;
+.event {
+  background: #c2e4fe;
 }
-table{
-    width: 100%;
-    border:1px solid  #808080;
-    border-radius:2px;
-    border-collapse: collapse;
-    table-layout:fixed;  
+.name {
+  font-weight: bold;
 }
-td{
-    border:1px solid  #808080;
-    border-radius:2px;
-    height:120px;
-    text-align:left;
-    vertical-align:top;
-    width:14%;
-    overflow:hidden;
+.today {
+  background: #f4f4f4;
+  font-weight: bolder;
 }
-tr{
-    height:120px;
+.calendar {
+  padding: 0;
+  margin: 0;
+  color: #808080;
 }
-.formForEvent{
-    border:1px solid  #808080;
-    -webkit-box-shadow:0px 1px 1px #808080;
-    -moz-box-shadow:0px 1px 1px #808080;
-    box-shadow:0px 1px 1px #808080;
-    border-radius:2px;
-    width:250px;
-    padding: 10px;
-    padding-right:20px; 
-    box-sizing: border-box;
-    position: absolute;
-    display: none;
-    background: white;
+table {
+  width: 100%;
+  border: 1px solid #808080;
+  border-radius: 2px;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
-.formForEvent button{
-    background-color: transparent;     
-    height: 22px;           
-    padding:1px 10px;     
-    vertical-align: middle; 
-    border:1px solid  #808080;
-    border-radius:2px;
+td {
+  border: 1px solid #808080;
+  border-radius: 2px;
+  height: 120px;
+  text-align: left;
+  vertical-align: top;
+  width: 14%;
+  overflow: hidden;
 }
-.formForEvent input{
-    margin-bottom:5px; 
-    width: 100%;
+tr {
+  height: 120px;
 }
-.formForEvent textarea{
-    margin-top: 15px;
-    width: 100%;
-    margin-bottom: 15px;
-    resize: none;
+.formForEvent {
+  border: 1px solid #808080;
+  -webkit-box-shadow: 0px 1px 1px #808080;
+  -moz-box-shadow: 0px 1px 1px #808080;
+  box-shadow: 0px 1px 1px #808080;
+  border-radius: 2px;
+  width: 250px;
+  padding: 10px;
+  padding-right: 20px;
+  box-sizing: border-box;
+  position: absolute;
+  display: none;
+  background: white;
 }
-.formForEvent::before, .formForEvent::after {
-    content: ''; 
-    position: absolute;
-    left: -20px; top: 20px;
-    border: 10px solid transparent;
-    border-right: 10px solid #808080;
-   }
+.formForEvent input {
+  margin-bottom: 5px;
+  width: 100%;
+}
+.formForEvent button,
+.formForEvent input[type=submit] {
+  background-color: transparent;
+  height: 22px;
+  padding: 1px 10px;
+  vertical-align: middle;
+  border: 1px solid #808080;
+  border-radius: 2px;
+  width: 65px;
+  margin-left: 5px;
+}
+.formForEvent button[name='x'] {
+  width: 30px;
+}
+.formForEvent textarea {
+  margin-top: 15px;
+  width: 100%;
+  margin-bottom: 15px;
+  resize: none;
+}
+.formForEvent::before,
 .formForEvent::after {
-    border-right: 10px solid white;
-    left: -19px; 
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 20px;
+  border: 10px solid transparent;
+  border-right: 10px solid #808080;
 }
-.shortFormEvent{
-    border:1px solid  #808080;
-    -webkit-box-shadow:0px 1px 1px #808080;
-    -moz-box-shadow:0px 1px 1px #808080;
-    box-shadow:0px 1px 1px #808080;
-    border-radius:2px;
-    width:250px;
-    padding: 10px;
-    padding-right:20px; 
-    box-sizing: border-box;
-    position: absolute;
-    display: none;
-    background: white;   
+.formForEvent::after {
+  border-right: 10px solid white;
+  left: -19px;
 }
-.shortFormEvent button{
-    background-color: transparent;     
-    height: 22px;           
-    padding:1px 10px;     
-    vertical-align: middle; 
-    border:1px solid  #808080;
-    border-radius:2px;
+.shortFormEvent {
+  border: 1px solid #808080;
+  -webkit-box-shadow: 0px 1px 1px #808080;
+  -moz-box-shadow: 0px 1px 1px #808080;
+  box-shadow: 0px 1px 1px #808080;
+  border-radius: 2px;
+  width: 250px;
+  padding: 10px;
+  padding-right: 20px;
+  box-sizing: border-box;
+  position: absolute;
+  display: none;
+  background: white;
 }
-.shortFormEvent input{
-    margin-bottom:5px; 
-    width: 100%;
+.shortFormEvent button {
+  background-color: transparent;
+  height: 22px;
+  padding: 1px 10px;
+  vertical-align: middle;
+  border: 1px solid #808080;
+  border-radius: 2px;
 }
-.shortFormEvent::before, .shortFormEvent::after {
-    content: ''; 
-    position: absolute;
-    left: 20px; top: -20px;
-    border: 10px solid transparent;
-    border-bottom: 10px solid #808080;
+.shortFormEvent input {
+  margin-bottom: 5px;
+  width: 100%;
+}
+.shortFormEvent::before,
+.shortFormEvent::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: -20px;
+  border: 10px solid transparent;
+  border-bottom: 10px solid #808080;
 }
 .shortFormEvent::after {
-    border-bottom: 10px solid white;
-    top: -19px; 
+  border-bottom: 10px solid white;
+  top: -19px;
 }
-.formForEditEvent{
-    border:1px solid  #808080;
-    -webkit-box-shadow:0px 1px 1px #808080;
-    -moz-box-shadow:0px 1px 1px #808080;
-    box-shadow:0px 1px 1px #808080;
-    border-radius:2px;
-    width:250px;
-    padding: 10px;
-    padding-right:20px; 
-    box-sizing: border-box;
-    position: absolute;
-    display: none;
-    background: white;
-    
+.formForEditEvent {
+  border: 1px solid #808080;
+  -webkit-box-shadow: 0px 1px 1px #808080;
+  -moz-box-shadow: 0px 1px 1px #808080;
+  box-shadow: 0px 1px 1px #808080;
+  border-radius: 2px;
+  width: 250px;
+  padding: 10px;
+  padding-right: 20px;
+  box-sizing: border-box;
+  position: absolute;
+  display: none;
+  background: white;
 }
-.formForEditEvent button{
-    background-color: transparent;     
-    height: 22px;           
-    padding:1px 10px;     
-    vertical-align: middle; 
-    border:1px solid  #808080;
-    border-radius:2px;
+.formForEditEvent button,
+.formForEditEvent input[type=submit] {
+  background-color: transparent;
+  height: 22px;
+  padding: 1px 10px;
+  vertical-align: middle;
+  border: 1px solid #808080;
+  border-radius: 2px;
+  margin-left: 5px;
 }
-.formForEditEvent textarea{
-    margin-top: 15px;
-    width: 100%;
-    margin-bottom: 15px;
-    resize: none;
+.formForEditEvent textarea {
+  margin-top: 15px;
+  width: 100%;
+  margin-bottom: 15px;
+  resize: none;
 }
-.formForEditEvent::before, .formForEditEvent::after {
-    content: ''; 
-    position: absolute;
-    left: -20px; top: 20px;
-    border: 10px solid transparent;
-    border-right: 10px solid #808080;
-   }
+.formForEditEvent h3 {
+  margin-bottom: 5px;
+}
+.formForEditEvent::before,
 .formForEditEvent::after {
-    border-right: 10px solid white;
-    left: -19px; 
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 20px;
+  border: 10px solid transparent;
+  border-right: 10px solid #808080;
 }
-button[name=x]{
-    border: none;
-    position: absolute;
-    top:0;right: 0;
+.formForEditEvent::after {
+  border-right: 10px solid white;
+  left: -19px;
 }
-.formForEditEvent h3{
-    margin-bottom: 5px;
+button[name=x] {
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
-.searchForm{
-    border:1px solid  #808080;
-    -webkit-box-shadow:0px 1px 1px #808080;
-    -moz-box-shadow:0px 1px 1px #808080;
-    box-shadow:0px 1px 1px #808080;
-    border-radius:2px;
-    width:200px;
-    height:300px;
-    overflow:auto;
-    box-sizing: border-box;
-    position: absolute;
-    display: none;
-    background: white;   
+.searchForm {
+  border: 1px solid #808080;
+  -webkit-box-shadow: 0px 1px 1px #808080;
+  -moz-box-shadow: 0px 1px 1px #808080;
+  box-shadow: 0px 1px 1px #808080;
+  border-radius: 2px;
+  width: 200px;
+  height: 300px;
+  overflow: auto;
+  box-sizing: border-box;
+  position: absolute;
+  display: none;
+  background: white;
 }
-.searchForm::before, .searchForm::after {
-    content: ''; 
-    position: absolute;
-    left: 20px; top: -20px;
-    border: 10px solid transparent;
-    border-bottom: 10px solid #808080;
+.searchForm::before,
+.searchForm::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: -20px;
+  border: 10px solid transparent;
+  border-bottom: 10px solid #808080;
 }
 .searchForm::after {
-    border-bottom: 10px solid white ;
-    top: -19px; 
+  border-bottom: 10px solid white ;
+  top: -19px;
 }
-li{
-    list-style:none;
-    border-bottom:1px solid #808080;
-    width:100%;
+li {
+  list-style: none;
+  border-bottom: 1px solid #808080;
+  width: 100%;
 }
-li:last-of-type{
-    border-bottom:none;
+li:last-of-type {
+  border-bottom: none;
 }
-li:hover{
-    background:#c2e4fe;
+li:hover {
+  background: #c2e4fe;
 }
-.live-search-list{
-    padding:5px;
-    margin:0 auto;  
+.live-search-list {
+  padding: 5px;
+  margin: 0 auto;
 }
 /*scroll styling.Work only in chrome*/
 ::-webkit-scrollbar {
@@ -298,17 +316,25 @@ li:hover{
   background: none;
 }
 ::-webkit-scrollbar-thumb {
-     border: 2px solid gray;
-     border-radius: 5px;
-     background:gray;
-     height:100px;
-     margin:0 auto;
+  border: 2px solid #808080;
+  border-radius: 5px;
+  background: #808080;
+  height: 100px;
+  margin: 0 auto;
 }
-::-webkit-scrollbar-thumb:hover{
-    background:#4b4848;
-    border-color:#4b4848;
+::-webkit-scrollbar-thumb:hover {
+  background: #4b4848;
+  border-color: #4b4848;
 }
 /*font color for current month*/
-.current{
-    color: #000000;
+.current {
+  color: #000000;
+}
+.wrap {
+  display: inline-flex;
+}
+.noscript {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0 auto;
 }

@@ -14,7 +14,6 @@
         function createCalendar(month, year, today) {
             var spanWithMonth = document.querySelector("#month");
             spanWithMonth.innerHTML = monthNames[month] + ", " + year;
-             //var numDays = daysInThisMonth();
             /*first and last days in this month*/
             var firstDay = new Date(year, month, 1);
             var lastDay = new Date(year, month + 1, 0);
@@ -47,7 +46,6 @@
             /*count days before first day of month*/
             for (i = 0; i < firstDay.getDay() - 1 ; i++) {
                 count++;
-               // $("td")[i].innerHTML += "";
             }
             var day = 0;
             /*write in cells days of month*/
@@ -112,7 +110,18 @@
                     $(".formForEvent").fadeIn(600);
                     $(".formForEvent form").remove();
                     createForm();
-                    $("[name=date]").val(date.toISOString().substr(0, 10));
+                    //////////////////
+                    var dateStr=date.toISOString().substr(0, 10);
+                    var dateFromBrouser = parseInt(dateStr[dateStr.length - 2] + dateStr[dateStr.length - 1]);
+                    if (date.getDate() !== dateFromBrouser) {
+                        var newStr;
+                        if (date.getDate().toString().length == 1)
+                            newStr = "0" + date.getDate().toString();
+                        else
+                            newStr = date.getDate().toString();
+                        dateStr = dateStr.substr(0, dateStr.length - 2) + newStr;
+                    }
+                    $("[name=date]").val(dateStr);
                     $(".formForEvent input[name=event]").attr('requered','required');
                     $(".formForEvent input[name=participant]").attr('requered','required');
                     $(".formForEvent input[name=date]").attr('requered','required');
@@ -125,10 +134,10 @@
                             $(".formForEditEvent").css({ left: pos.left + w - 10 - widthOfPopupForms, top: pos.top + 10 });
                         else
                             /*if popup element is out of the window*/
-                            $(".formForEditEvent").css({ left: 10, top: pos.top + 10 });
+                            $(".formForEditEvent").css({ left: 10, top:pos.top + 10 });
                     } 
                     $(".formForEditEvent").fadeIn(600);
-                   // $(".formForEditEvent form").remove();
+                    $(".formForEditEvent form").remove();
                     /*----------------------------------------------------- */
                     createEditForm();
                     var  dateFromElem = readDateFromHiddenElement($(this));
@@ -142,56 +151,68 @@
                     str=event.description;
                     if(str)
                         $(".formForEditEvent [name=description]").text(str);
-                    $(window).unbind("click").on('click', function (e) {
-                        if (e.target.name == "del") {
-                            deleteEvent(event);
-                        }
-                        if (e.target.name == "ok")
-                            if ($(e.target).parent().parent().parent().prop('className') == "formForEditEvent") {
-                                refreshEvent(event);
-                            }
-                        if (e.target.name == "ok") {
-                            //add event to localstorage
-                            if ($(e.target).parent().parent().parent().prop('className') == "formForEvent") {
-                                if ($("[name=event]").val().length && $("[name=participant]").val().length && $("[name=date]").val().length) {
-                                    var event = new Event();
-                                    event.name = $("[name=event]").val();
-                                    date = parseDate($("[name=date]").val());
-                                    if (date) {
-                                        var day = date.getDate();
-                                        var month = date.getMonth();
-                                        var year = date.getFullYear();
-                                    }
-                                    event.date = new Date(year, month, day);
-                                    event.participants = $("[name=participant]").val();
-                                    event.description = $("[name=description]").val();
-                                    events.push(event);
-                                    localStorage.setItem('events', JSON.stringify(events));
-                                    if (date)
-                                        createCalendar(month, year, today);
-                                }
-
-                            }
-                        }
-                        if ((e.target.name == "cancel") && $(e.target).parent().parent().parent().prop('className') == "formForEvent")
-                            cancel();
-                        if ((e.target.name == "x" && $(e.target).parent().parent().prop('className') == "formForEvent"))
-                            cancel();
-                        function cancel() {
-                            var requiredInputs = $(".formForEvent [required]");
-                            for (i = 0; i < requiredInputs.length; i++) {
-                                requiredInputs[i].setCustomValidity("");
-                            }
-                            $(".formForEvent").hide();
-                            if (event) {
-                                event.stopPropagation();
-                                event.preventDefault();
-                            }
-                            var curDate = findDomDate();
-                            createCalendar($.inArray(curDate[0], monthNames), parseInt(curDate[1]), today);
-                        }
-                    });
                 }
+                $(window).unbind("click").on('click', { event }, function (e) {
+                    var curDate = findDomDate();
+                    var event = e.data;
+                    if (e.target.name == "del") {
+                        deleteEvent(event.event);
+                        forSubmitForms("formForEditEvent");
+                    }
+                    if ((e.target.name == "x" && $(e.target).parent().parent().prop('className') == "formForEditEvent")){
+                        forSubmitForms("formForEditEvent");
+                        $(".formForEditEvent form").remove();
+                        $(".formForEditEvent").hide();
+                    }
+                    if (e.target.name == "ok")
+                        if ($(e.target).parent().parent().parent().prop('className') == "formForEditEvent") {
+                            refreshEvent(event.event);
+                            forSubmitForms("formForEditEvent");
+                            $(".formForEditEvent form").remove();
+                            $(".formForEditEvent").hide();
+                        }
+                    if (e.target.name == "ok") {
+                        //add event to localstorage
+                        if ($(e.target).parent().parent().parent().prop('className') == "formForEvent") {
+                            if ($("[name=event]").val().length && $("[name=participant]").val().length && $("[name=date]").val().length) {
+                                var event = new Event();
+                                event.name = $("[name=event]").val();
+                                date = parseDate($("[name=date]").val());
+                                if (date) {
+                                    var day = date.getDate();
+                                    var month = date.getMonth();
+                                    var year = date.getFullYear();
+                                }
+                                event.date = new Date(year, month, day);
+                                event.participants = $("[name=participant]").val();
+                                event.description = $("[name=description]").val();
+                                events.push(event);
+                                localStorage.setItem('events', JSON.stringify(events));
+                                if (date)
+                                    createCalendar(month, year, today);
+                            }
+                        }
+                        forSubmitForms("formForEvent");
+                    }
+                    if ((e.target.name == "cancel") && $(e.target).parent().parent().parent().prop('className') == "formForEvent")
+                        cancel();
+                    if ((e.target.name == "x" && $(e.target).parent().parent().prop('className') == "formForEvent"))
+                        cancel();
+                    function cancel() {
+                        var requiredInputs = $(".formForEvent [required]");
+                        for (i = 0; i < requiredInputs.length; i++) {
+                            requiredInputs[i].setCustomValidity("");
+                            requiredInputs[i].required = false;
+                        }
+                        forSubmitForms("formForEvent");
+                        $(".formForEvent form").remove();
+                        $(".formForEvent").hide();
+                        //if (event) {
+                        //   // event.stopPropagation();
+                        //    event.preventDefault();
+                        //}
+                    }
+                });
             });
             
             
@@ -201,6 +222,7 @@
                 //$(".shortFormEvent input[name=eventWithDate]").IsValid = true;
                 //$(".shortFormEvent input[name=eventWithDate]").oninvalid = document.getElementsByName("eventWithDate")[0].setCustomValidity("");
                 $(".shortFormEvent input[name=eventWithDate]").oninvalid = this.setCustomValidity('');
+                forSubmitForms("shortFormEvent");
                 $(".shortFormEvent").hide();
             });
             $("#add").click(function () {
@@ -312,7 +334,8 @@
                 event.name = name;
                 event.date = date;
                 events.push(event);
-                localStorage.setItem('events', JSON.stringify(events));                     
+                localStorage.setItem('events', JSON.stringify(events));
+                forSubmitForms("shortFormEvent");
             }
             else{
                 //$(".shortFormEvent input[name=eventWithDate]").IsValid=false;
@@ -328,9 +351,6 @@
                 $("."+nameOfForm).fadeOut(600);
             });
         }
-        forSubmitForms("shortFormEvent");
-        forSubmitForms("formForEvent");
-        forSubmitForms("formForEditEvent");
         function findEventInArray(date) {
             var c;
             var arrLength=events.length;
@@ -541,6 +561,20 @@
                 }).appendTo(wrap);
                 $("div.formForEditEvent").append(form);
             }
+            //function getDateInRightFormat(date) {
+            //    var dd = date.getDate();
+            //    var mm = date.getMonth() + 1; //January is 0!
+
+            //    var yyyy = date.getFullYear();
+            //    if (dd < 10) {
+            //        dd = '0' + dd;
+            //    }
+            //    if (mm < 10) {
+            //        mm = '0' + mm;
+            //    }
+            //    var newStrDate = dd + '/' + mm + '/' + yyyy;
+            //    return newStrDate;
+            //}
     });
 
 })();
